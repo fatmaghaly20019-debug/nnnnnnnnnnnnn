@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Lock, User } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface LoginFormProps {
   onLogin: (userType: string, username: string) => void;
@@ -39,10 +40,16 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
         } else if (username === "ahmedfathy892025" && password === "abofathyCARDSINFO@@?") {
           isValid = true;
           actualUsername = "ahmed fathy";
+        } else if (username === "ahmedeldeeb982025" && password === "ahmedebrahim179355??SS") {
+          isValid = true;
+          actualUsername = "ahmed eldeeb";
+        } else if (username === "saedzidan982025" && password === "saeedzidan159228Zz%%") {
+          isValid = true;
+          actualUsername = "saed zidan";
         }
       } else if (userType === "single") {
-        // For single user, username should be a mobile number
-        if (username && password) {
+        // For single user, username should be a mobile number, no password required
+        if (username) {
           isValid = true;
           actualUsername = username;
         }
@@ -128,12 +135,15 @@ export const LoginForm = ({ onLogin }: LoginFormProps) => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="أدخل كلمة المرور"
                   className="pl-10 pr-10 text-right"
-                  required
+                  required={userType !== "single"}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  className={cn(
+                    "absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground",
+                    userType === "single" && "hidden"
+                  )}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
